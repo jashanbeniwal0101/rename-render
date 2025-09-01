@@ -12,12 +12,12 @@ API_HASH = os.environ.get("API_HASH", "cab85305bf85125a2ac053210bcd1030")
 BOT_TOKEN = os.environ.get("BOT_TOKEN", "your-bot-token-here")
 
 # Force Subscription channel
-FORCE_SUB = os.environ.get("FORCE_SUB", "-1002888391802")
+FORCE_SUB = os.environ.get("FORCE_SUB", "@JBMultiusage_bot")
 
 DB_NAME = os.environ.get("DB_NAME", "renamevjbot")
 DB_URL = os.environ.get(
     "DB_URL",
-    "mongodb+srv://username:password@cluster0.mongodb.net/?retryWrites=true&w=majority",
+    "mongodb+srv://rs92573993688:pVf4EeDuRi2o92ex@cluster0.9u29q.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
 )
 
 FLOOD = int(os.environ.get("FLOOD", "10"))
