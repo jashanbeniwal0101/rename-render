@@ -12,7 +12,7 @@ API_HASH = os.environ.get("API_HASH", "cab85305bf85125a2ac053210bcd1030")
 BOT_TOKEN = os.environ.get("BOT_TOKEN", "7368321164:AAFam8sY3iV6B7E4spxiexilmgmtZBrhBJ8")
 
 # Force Subscription channel
-FORCE_SUB = os.environ.get("FORCE_SUB", "-1002888391802")
+FORCE_SUB = os.environ.get("FORCE_SUB", "allbotsupdates1")
 
 DB_NAME = os.environ.get("DB_NAME", "renamevjbot")
 DB_URL = os.environ.get(
