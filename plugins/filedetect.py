@@ -3,32 +3,44 @@
 # Ask Doubt on telegram @KingVJ01
 
 from pyrogram import Client, filters
-from pyrogram.enums import MessageMediaType
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ForceReply
 
 @Client.on_message(filters.private & filters.reply)
 async def refunc(client, message):
     reply_message = message.reply_to_message
-    if (reply_message.reply_markup) and isinstance(reply_message.reply_markup, ForceReply):
-       new_name = message.text 
-       await message.delete() 
-       msg = await client.get_messages(message.chat.id, reply_message.id)
-       file = msg.reply_to_message
-       media = getattr(file, file.media.value)
-       if not "." in new_name:
-          if "." in media.file_name:
-              extn = media.file_name.rsplit('.', 1)[-1]
-          else:
-              extn = "mkv"
-          new_name = new_name + "." + extn
-       await reply_message.delete()
 
-       button = [[InlineKeyboardButton("📁 𝙳𝙾𝙲𝚄𝙼𝙴𝙽𝚃𝚂",callback_data = "upload_document")]]
-       if file.media in [MessageMediaType.VIDEO, MessageMediaType.DOCUMENT]:
-           button.append([InlineKeyboardButton("🎥 𝚅𝙸𝙳𝙴𝙾",callback_data = "upload_video")])
-       elif file.media == MessageMediaType.AUDIO:
-           button.append([InlineKeyboardButton("🎵 𝙰𝙾𝚄𝙳𝙸𝙾",callback_data = "upload_audio")])
-       await message.reply_text(
-          f"**Select the output file type**\n**• File Name :-**```{new_name}```",
-          reply_to_message_id=file.id,
-          reply_markup=InlineKeyboardMarkup(button))
+    # Ensure it's a ForceReply
+    if reply_message and isinstance(reply_message.reply_markup, ForceReply):
+        new_name = message.text.strip()
+        await message.delete()
+
+        # The actual media message is one level deeper
+        file = reply_message.reply_to_message
+
+        # Detect extension
+        if not "." in new_name:
+            if file and file.document and file.document.file_name:
+                extn = file.document.file_name.rsplit('.', 1)[-1]
+            elif file and file.video and file.video.file_name:
+                extn = file.video.file_name.rsplit('.', 1)[-1]
+            elif file and file.audio and file.audio.file_name:
+                extn = file.audio.file_name.rsplit('.', 1)[-1]
+            else:
+                extn = "mkv"
+            new_name = f"{new_name}.{extn}"
+
+        await reply_message.delete()
+
+        # Prepare buttons
+        buttons = [[InlineKeyboardButton("📁 Document", callback_data="upload_document")]]
+
+        if file.video or file.document:
+            buttons.append([InlineKeyboardButton("🎥 Video", callback_data="upload_video")])
+        if file.audio:
+            buttons.append([InlineKeyboardButton("🎵 Audio", callback_data="upload_audio")])
+
+        await message.reply_text(
+            f"**Select the output file type**\n**• File Name :-** `{new_name}`",
+            reply_to_message_id=file.id,
+            reply_markup=InlineKeyboardMarkup(buttons)
+        )
