@@ -1,7 +1,3 @@
-# Don't Remove Credit @VJ_Botz
-# Subscribe YouTube Channel For Amazing Bot @Tech_VJ
-# Ask Doubt on telegram @KingVJ01
-
 from helper.utils import progress_for_pyrogram, convert
 from pyrogram import Client, filters
 from pyrogram.types import (  InlineKeyboardButton, InlineKeyboardMarkup,ForceReply)
@@ -115,3 +111,4 @@ async def doc(bot,update):
      os.remove(file_path) 
      if ph_path:
         os.remove(ph_path) 
+	
