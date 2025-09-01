@@ -1,7 +1,3 @@
-# Don't Remove Credit @VJ_Botz
-# Subscribe YouTube Channel For Amazing Bot @Tech_VJ
-# Ask Doubt on telegram @KingVJ01
-
 from pyrogram import Client, filters
 from pyrogram.enums import MessageMediaType
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ForceReply
@@ -32,3 +28,4 @@ async def refunc(client, message):
           f"**Select the output file type**\n**• File Name :-**```{new_name}```",
           reply_to_message_id=file.id,
           reply_markup=InlineKeyboardMarkup(button))
+        
